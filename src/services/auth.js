@@ -18,12 +18,12 @@ export const registerUser = async (payload) => {
 export const loginUser = async (payload) => {
   const user = await UsersCollection.findOne({ email: payload.email });
   if (!user) {
-    throw createHttpError(404, 'User not found');
+    throw createHttpError(401, 'Invalid email or password');
   }
   const isEqual = await bcrypt.compare(payload.password, user.password);
 
   if (!isEqual) {
-    throw createHttpError(401, 'Unauthorized');
+    throw createHttpError(401, 'Invalid email or password');
   }
   await SessionsCollection.deleteOne({ userId: user._id });
 

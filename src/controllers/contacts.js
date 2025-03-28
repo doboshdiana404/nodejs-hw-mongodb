@@ -14,6 +14,7 @@ export const getAllContacts = async (req, res, next) => {
   const { sortBy, sortOrder } = parseSortParams(req.query);
   const filter = parseFilterParams(req.query);
   const contacts = await getAllContactsService({
+    userId: req.user._id,
     page,
     perPage,
     sortBy,
@@ -29,7 +30,7 @@ export const getAllContacts = async (req, res, next) => {
 
 export const getContactById = async (req, res, next) => {
   const { id } = req.params;
-  const contact = await getContactByIdService(id);
+  const contact = await getContactByIdService(id, req.user._id);
   if (!contact) {
     throw createHttpError(404, 'Contact not found');
   }
@@ -40,7 +41,7 @@ export const getContactById = async (req, res, next) => {
   });
 };
 export const createContactController = async (req, res) => {
-  const contact = await createContact(req.body);
+  const contact = await createContact({ ...req.body, userId: req.user._id });
 
   res.status(201).json({
     status: 201,
@@ -50,7 +51,7 @@ export const createContactController = async (req, res) => {
 };
 export const patchContactController = async (req, res, next) => {
   const { id } = req.params;
-  const result = await updateContact(id, req.body);
+  const result = await updateContact(id, req.user._id, req.body);
 
   if (!result) {
     throw createHttpError(404, 'Contact not found');
@@ -65,7 +66,7 @@ export const patchContactController = async (req, res, next) => {
 export const deleteContactController = async (req, res, next) => {
   const { id } = req.params;
 
-  const contact = await deleteContact(id);
+  const contact = await deleteContact(id, req.user._id);
 
   if (!contact) {
     throw createHttpError(404, 'Contact not found');
@@ -76,7 +77,7 @@ export const deleteContactController = async (req, res, next) => {
 export const upsertContactController = async (req, res, next) => {
   const { id } = req.params;
 
-  const result = await updateContact(id, req.body, {
+  const result = await updateContact(id, req.user._id, req.body, {
     upsert: true,
   });
 

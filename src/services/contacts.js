@@ -3,6 +3,7 @@ import Contact from '../models/contact.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
 export const getAllContactsService = async ({
+  userId,
   page = 1,
   perPage = 10,
   sortOrder = SORT_ORDER.ASC,
@@ -11,7 +12,7 @@ export const getAllContactsService = async ({
 }) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
-  const query = {};
+  const query = { userId };
   if (filter.contactType) {
     query.contactType = filter.contactType;
   }
@@ -34,19 +35,23 @@ export const getAllContactsService = async ({
   };
 };
 
-export const getContactByIdService = async (id) => {
-  return await Contact.findById(id);
+export const getContactByIdService = async (id, userId) => {
+  return await Contact.findById({ _id: id, userId });
 };
 export const createContact = async (payload) => {
   const contact = await Contact.create(payload);
   return contact;
 };
-export const updateContact = async (id, payload, options = {}) => {
-  const rawResult = await Contact.findOneAndUpdate({ _id: id }, payload, {
-    new: true,
-    includeResultMetadata: true,
-    ...options,
-  });
+export const updateContact = async (id, userId, payload, options = {}) => {
+  const rawResult = await Contact.findOneAndUpdate(
+    { _id: id, userId },
+    payload,
+    {
+      new: true,
+      includeResultMetadata: true,
+      ...options,
+    },
+  );
 
   if (!rawResult || !rawResult.value) return null;
 
@@ -56,9 +61,10 @@ export const updateContact = async (id, payload, options = {}) => {
   };
 };
 
-export const deleteContact = async (id) => {
+export const deleteContact = async (id, userId) => {
   const contact = await Contact.findOneAndDelete({
     _id: id,
+    userId,
   });
 
   return contact;
