@@ -19,6 +19,7 @@ import { isValidId } from '../middlewares/isValidId.js';
 import { checkRoles } from '../middlewares/checkRoles.js';
 import { ROLES } from '../constants/index.js';
 import { authenticate } from '../middlewares/authenticate.js';
+import { upload } from '../middlewares/multer.js';
 
 const router = Router();
 router.use(authenticate);
@@ -33,12 +34,14 @@ router.get(
 router.post(
   '/',
   checkRoles(ROLES.TEACHER),
+  upload.single('photo'),
   validateBody(createContactSchema),
   ctrlWrapper(createContactController),
 );
 router.patch(
   '/:id',
   checkRoles(ROLES.TEACHER, ROLES.PARENT),
+  upload.single('photo'),
   isValidId,
   validateBody(updateContactSchema),
   ctrlWrapper(patchContactController),
@@ -51,6 +54,7 @@ router.delete(
 router.put(
   '/:id',
   checkRoles(ROLES.TEACHER),
+  upload.single('photo'),
   isValidId,
   validateBody(createContactSchema),
   ctrlWrapper(upsertContactController),
