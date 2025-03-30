@@ -7,11 +7,6 @@ export const SORT_ORDER = {
 export const FIFTEEN_MINUTES = 15 * 60 * 1000;
 export const THIRTY_DAY = 30 * 24 * 60 * 60 * 1000;
 
-export const ROLES = {
-  TEACHER: 'teacher',
-  PARENT: 'parent',
-};
-
 export const SMTP = {
   SMTP_HOST: 'SMTP_HOST',
   SMTP_PORT: 'SMTP_PORT',
