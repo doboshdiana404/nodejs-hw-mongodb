@@ -1,0 +1,62 @@
+summary: Logout user
+operationId: logoutUser
+tags:
+  - Auth
+parameters:
+  - in: cookie
+    name: refreshToken
+    required: true
+    schema:
+      type: string
+responses:
+  204:
+    description: Successfully logged out
+  400:
+    description: Bad request, typically missing or invalid refresh token
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: 'Unauthorized'
+            data:
+              type: string
+              example: '"email" is required, "emai" is not allowed'
+          required:
+            - status
+            - message
+        example:
+          status: 400
+          message: 'Invalid refresh token'
+          data: 'Refresh token cookie is missing'
+
+  401:
+    description: Unauthorized, if no valid session exists
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: 'Unauthorized'
+            data:
+              type: string
+              example: '"email" is required, "emai" is not allowed'
+          required:
+            - status
+            - message
+        example:
+          status: 401
+          message: 'Something went wrong'
+          data: 'Not authenticated'
+  500:
+    $ref: ../../components/responses/500.yaml

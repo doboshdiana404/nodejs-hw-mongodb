@@ -1,0 +1,33 @@
+summary: Login a user
+operationId: loginUser
+tags:
+  - Auth
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          email:
+            type: string
+            example: 'tom@example.com'
+          password:
+            type: string
+            example: '1234567'
+        required:
+          - email
+          - password
+responses:
+  200:
+    description: Successfully login
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/loginSchema.yaml'
+  400:
+    $ref: ../../components/responses/400.yaml
+  401:
+    $ref: ../../components/responses/401.yaml
+  500:
+    $ref: ../../components/responses/500.yaml

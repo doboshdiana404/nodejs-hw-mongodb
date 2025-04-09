@@ -1,0 +1,73 @@
+summary: Refresh the access token
+operationId: refreshToken
+tags:
+  - Auth
+parameters:
+  - in: cookie
+    name: refreshToken
+    description: The refresh token
+    required: true
+    schema:
+      type: string
+responses:
+  200:
+    description: New access token
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/loginSchema.yaml'
+        example:
+          status: 200
+          message: Successfully refreshed a session!
+          data:
+            accessToken: xi8deii1acfv2gCp06mMjNyDGyrw6pkd+OlOur5s
+
+  400:
+    description: Bad request
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: 'Unauthorized'
+            data:
+              type: string
+              example: '"email" is required'
+          required:
+            - status
+            - message
+        example:
+          status: 400
+          message: 'Invalid refresh token'
+          data: 'Refresh token cookie is missing or malformed'
+
+  401:
+    description: Unauthorized
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: 'Unauthorized'
+            data:
+              type: string
+              example: '"email" is required, "emai" is not allowed'
+          required:
+            - status
+            - message
+        example:
+          status: 401
+          message: 'Something went wrong'
+          data: 'Refresh token is invalid'
+  500:
+    $ref: ../../components/responses/500.yaml

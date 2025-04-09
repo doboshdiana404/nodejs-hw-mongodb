@@ -1,0 +1,66 @@
+summary: reset password by email
+operationId: sendResetEmail
+tags:
+  - Auth
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          email:
+            type: string
+            example: 'tom@gmail.com'
+        required:
+          - email
+responses:
+  200:
+    description: successfully reset password email
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: successfully reset password email
+            data:
+              type: object
+              example: {}
+          required:
+            - status
+            - message
+            - data
+
+  400:
+    $ref: '../../components/responses/400.yaml'
+
+  404:
+    description: User with provided email was not found
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: 'Unauthorized'
+            data:
+              type: string
+              example: '"email" is required, "emai" is not allowed'
+          required:
+            - status
+            - message
+        example:
+          status: 404
+          message: Something went wrong
+          data: User not found!
+  500:
+    $ref: ../../components/responses/500.yaml
