@@ -17,3 +17,5 @@ responses:
     description: Resource deleted successfully. No content returned.
   '404':
     $ref: '../../../components/responses/404.yaml'
+  '401':
+    $ref: '../../../components/responses/401.yaml'

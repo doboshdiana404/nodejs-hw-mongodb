@@ -42,9 +42,7 @@ properties:
 required:
   - _id
   - name
-  - email
   - phoneNumber
-  - isFavourite
   - contactType
   - userId
   - createdAt
