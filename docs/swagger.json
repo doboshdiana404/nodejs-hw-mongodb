@@ -267,6 +267,9 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
           "401": {
             "$ref": "#/components/responses/401"
           }
@@ -435,6 +438,9 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
           "401": {
             "$ref": "#/components/responses/401"
           },
@@ -469,6 +475,9 @@
         "responses": {
           "200": {
             "description": "Resource deleted successfully. No content returned."
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
           },
           "404": {
             "$ref": "#/components/responses/404"
@@ -525,6 +534,9 @@
           },
           "400": {
             "$ref": "#/components/responses/400"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -1110,6 +1122,39 @@
           }
         }
       },
+      "409": {
+        "description": "Conflict - user already exists",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Unauthorized"
+                },
+                "data": {
+                  "type": "string",
+                  "example": "\"email\" is required, \"emai\" is not allowed"
+                }
+              },
+              "required": [
+                "status",
+                "message"
+              ]
+            },
+            "example": {
+              "status": 409,
+              "message": "Something went wrong",
+              "data": "Email in use"
+            }
+          }
+        }
+      },
       "500": {
         "description": "Internal server error.",
         "content": {
@@ -1213,9 +1258,7 @@
         "required": [
           "_id",
           "name",
-          "email",
           "phoneNumber",
-          "isFavourite",
           "contactType",
           "userId",
           "createdAt",
