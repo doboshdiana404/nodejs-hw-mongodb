@@ -13,7 +13,7 @@ parameters:
     schema:
       type: string
 responses:
-  '200':
+  '204':
     description: Resource deleted successfully. No content returned.
   '404':
     $ref: '../../../components/responses/404.yaml'

@@ -13,7 +13,7 @@ tags:
     description: Auth operations.
 servers:
   - url: http://localhost:3000
-  - url: https://contacts-book-0404/api/v1
+  - url: https://nodejs-hw-mongodb-mf2k.onrender.com
 paths:
   /contacts:
     get:

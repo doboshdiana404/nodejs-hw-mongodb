@@ -28,7 +28,7 @@ responses:
     content:
       application/json:
         schema:
-          $ref: '../../components/schemas/registationSchema.yaml'
+          $ref: '../../components/schemas/user.yaml'
   400:
     $ref: '../../components/responses/400.yaml'
   500:

@@ -14,7 +14,7 @@
       "url": "http://localhost:3000"
     },
     {
-      "url": "https://contacts-book-0404/api/v1"
+      "url": "https://nodejs-hw-mongodb-mf2k.onrender.com"
     }
   ],
   "security": [
@@ -473,7 +473,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Resource deleted successfully. No content returned."
           },
           "401": {
@@ -527,7 +527,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/registationSchema"
+                  "$ref": "#/components/schemas/user"
                 }
               }
             }
@@ -581,7 +581,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/loginSchema"
+                  "$ref": "#/components/schemas/user"
                 }
               }
             }
@@ -715,13 +715,34 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/loginSchema"
-                },
-                "example": {
-                  "status": 200,
-                  "message": "Successfully refreshed a session!",
-                  "data": {
-                    "accessToken": "xi8deii1acfv2gCp06mMjNyDGyrw6pkd+OlOur5s"
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully refreshed a session!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "accessToken"
+                      ],
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "description": "The new access token for the user session",
+                          "example": "xi8deii1acfv2gCp06mMjNyDGyrw6pkd+OlOur5s"
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -1265,69 +1286,41 @@
           "updatedAt"
         ]
       },
-      "registationSchema": {
+      "user": {
         "type": "object",
-        "properties": {
-          "status": {
-            "type": "integer",
-            "example": 201
-          },
-          "message": {
-            "type": "string",
-            "example": "User successfully registered."
-          },
-          "data": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "example": "67f39f29e3c363521e0ae31d"
-              },
-              "name": {
-                "type": "string",
-                "example": "Tom"
-              },
-              "email": {
-                "type": "string",
-                "example": "tom@gmail.com"
-              }
-            }
-          }
-        },
         "required": [
-          "status",
-          "message",
-          "data"
-        ]
-      },
-      "loginSchema": {
-        "type": "object",
+          "name",
+          "email",
+          "password"
+        ],
         "properties": {
-          "status": {
-            "type": "number",
-            "description": "HTTP status code",
-            "example": 200
-          },
-          "message": {
+          "_id": {
             "type": "string",
-            "example": "Successfully logged in a user!"
+            "example": "66b0ab77141205369a56ed0d"
           },
-          "data": {
-            "type": "object",
-            "properties": {
-              "accessToken": {
-                "type": "string",
-                "description": "JWT access token",
-                "example": "fggvhjrsxbmk/8yJu3Bin3W6ff6f3kkZHcVT+J+jdf"
-              }
-            }
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "example@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "123john"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-08-05T10:37:43.870Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-08-05T10:37:43.870Z"
           }
-        },
-        "required": [
-          "status",
-          "message",
-          "data"
-        ]
+        }
       }
     }
   }

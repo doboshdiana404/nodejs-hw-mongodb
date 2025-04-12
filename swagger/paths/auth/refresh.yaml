@@ -15,13 +15,27 @@ responses:
     content:
       application/json:
         schema:
-          $ref: '../../components/schemas/loginSchema.yaml'
-        example:
-          status: 200
-          message: Successfully refreshed a session!
-          data:
-            accessToken: xi8deii1acfv2gCp06mMjNyDGyrw6pkd+OlOur5s
-
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully refreshed a session!
+            data:
+              type: object
+              required:
+                - accessToken
+              properties:
+                accessToken:
+                  type: string
+                  description: The new access token for the user session
+                  example: xi8deii1acfv2gCp06mMjNyDGyrw6pkd+OlOur5s
   400:
     description: Bad request
     content:
