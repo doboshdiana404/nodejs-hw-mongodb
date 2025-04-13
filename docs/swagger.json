@@ -70,10 +70,7 @@
             "name": "sortBy",
             "schema": {
               "type": "string",
-              "enum": [
-                "name"
-              ],
-              "default": "name"
+              "example": "name"
             },
             "description": "All contact's fields can be mentioned. Default value - _id"
           },
@@ -91,7 +88,7 @@
           },
           {
             "in": "query",
-            "name": "type",
+            "name": "contactType",
             "description": "Contact type filter",
             "required": false,
             "schema": {
@@ -1289,6 +1286,7 @@
       "user": {
         "type": "object",
         "required": [
+          "_id",
           "name",
           "email",
           "password"
